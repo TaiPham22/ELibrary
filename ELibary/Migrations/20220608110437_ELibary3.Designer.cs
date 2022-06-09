@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ELibary.Migrations
 {
     [DbContext(typeof(ELibaryContext))]
-    [Migration("20220606022532_ELibary6")]
-    partial class ELibary6
+    [Migration("20220608110437_ELibary3")]
+    partial class ELibary3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -387,8 +387,8 @@ namespace ELibary.Migrations
                     b.Property<string>("NoiDung")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhanLoai")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("PhanLoai")
+                        .HasColumnType("bit");
 
                     b.Property<string>("TrangThai")
                         .HasColumnType("nvarchar(max)");

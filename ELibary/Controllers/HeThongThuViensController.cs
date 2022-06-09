@@ -10,8 +10,7 @@ using ELibary.Models;
 
 namespace ELibary.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+   
     public class HeThongThuVienController : ControllerBase
     {
         private readonly ELibaryContext _context;

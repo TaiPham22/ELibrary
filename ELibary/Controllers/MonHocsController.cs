@@ -54,7 +54,8 @@ namespace ELibary.Controllers
 
         {
             var monhoc = (from m in _context.MonHoc
-                          join a in _context.NguoiDung on m.MaMon equals a.MaNguoiDung
+                          join g in _context.GiangDay on m.Id equals g.MaMon
+                          join a in _context.NguoiDung on g.MaGV equals a.Id
                           where m.Id == id
                           select new
                           {
@@ -115,27 +116,26 @@ namespace ELibary.Controllers
             }
         }
 
-        // POST: api/MonHoc/PhanCong           Phân công tài liệu
+       // POST: api/MonHoc/PhanCong Phân công tài liệu
 
-        //[Route("api/MonHoc/PhanCong")]
-        //[HttpPost]
-        //public IActionResult PhanCongTaiLieu(PhanCong tailieu)
-        //{
-        //    try
-        //    {
-        //        if (tailieu != null)
-        //        {
-        //            _context.PhanCongs.Add(tailieu);
-        //            _context.SaveChanges();
-        //            return Ok(tailieu);
-        //        }
-        //        return BadRequest("Chưa nhập dữ liệu");
-        //    }
-        //    catch
-        //    {
-        //        return BadRequest("Lỗi");
-        //    }
-        //}
+       [Route("api/MonHoc/PhanCong")]
+       [HttpPost]
+        public IActionResult PhanCongTaiLieu(PhanCong tailieu)
+        {
+            try { 
+                if (tailieu != null)
+                {
+                    _context.PhanCong.Add(tailieu);
+                    _context.SaveChanges();
+                    return Ok(tailieu);
+                }
+                return BadRequest("Chưa nhập dữ liệu");
+            }
+            catch
+            {
+                return BadRequest("Lỗi");
+            }
+        }
 
         // DELETE: api/MonHoc/5
         [Route("api/MonHoc")]

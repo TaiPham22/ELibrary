@@ -11,7 +11,7 @@ namespace ELibary.Data
     {
         public ELibaryContext (DbContextOptions<ELibaryContext> options)
             : base(options)
-        {
+        { 
         }
 
         public DbSet<ELibary.Models.BaiGiang_TaiNguyen>? BaiGiang_TaiNguyen { get; set; }
@@ -37,5 +37,7 @@ namespace ELibary.Data
         public DbSet<ELibary.Models.TroGiup>? TroGiup { get; set; }
 
         public DbSet<ELibary.Models.Role>? Role { get; set; }
+        public DbSet<ELibary.Models.Giangday>? GiangDay { get; set; }
+        public DbSet<ELibary.Models.PhanCong>? PhanCong { get; set; }
     }
 }

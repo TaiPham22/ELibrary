@@ -28,6 +28,7 @@ namespace ELibary.Migrations
                 {
                     table.PrimaryKey("PK_Role", x => x.Id);
                 });
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

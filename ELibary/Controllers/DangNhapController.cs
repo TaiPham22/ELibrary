@@ -14,8 +14,7 @@ using System.Net.Mail;
 
 namespace ELibary.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+  
     public class DangNhapController : ControllerBase
     {
         private readonly ELibaryContext _context;

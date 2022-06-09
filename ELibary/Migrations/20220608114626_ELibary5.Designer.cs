@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ELibary.Migrations
 {
     [DbContext(typeof(ELibaryContext))]
-    [Migration("20220606014849_ELibary4")]
-    partial class ELibary4
+    [Migration("20220608114626_ELibary5")]
+    partial class ELibary5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -111,6 +111,37 @@ namespace ELibary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DeThi");
+                });
+
+            modelBuilder.Entity("ELibary.Models.Giangday", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("MaGV")
+                        .HasMaxLength(128)
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaLop")
+                        .HasMaxLength(128)
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaMon")
+                        .HasMaxLength(128)
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaGV");
+
+                    b.HasIndex("MaLop");
+
+                    b.HasIndex("MaMon");
+
+                    b.ToTable("GiangDay");
                 });
 
             modelBuilder.Entity("ELibary.Models.HeThongThuVien", b =>
@@ -232,6 +263,35 @@ namespace ELibary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NguoiDung");
+                });
+
+            modelBuilder.Entity("ELibary.Models.PhanCong", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("BaiGiang")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BaiGiang_TaiNguyenId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ChuDe")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lop")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BaiGiang_TaiNguyenId");
+
+                    b.ToTable("PhanCong");
                 });
 
             modelBuilder.Entity("ELibary.Models.Role", b =>
@@ -387,8 +447,8 @@ namespace ELibary.Migrations
                     b.Property<string>("NoiDung")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhanLoai")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("PhanLoai")
+                        .HasColumnType("bit");
 
                     b.Property<string>("TrangThai")
                         .HasColumnType("nvarchar(max)");
@@ -424,6 +484,44 @@ namespace ELibary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TroGiup");
+                });
+
+            modelBuilder.Entity("ELibary.Models.Giangday", b =>
+                {
+                    b.HasOne("ELibary.Models.NguoiDung", "GiangVien")
+                        .WithMany()
+                        .HasForeignKey("MaGV")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ELibary.Models.LopHoc", "LopHoc")
+                        .WithMany()
+                        .HasForeignKey("MaLop")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ELibary.Models.MonHoc", "Mon")
+                        .WithMany()
+                        .HasForeignKey("MaMon")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GiangVien");
+
+                    b.Navigation("LopHoc");
+
+                    b.Navigation("Mon");
+                });
+
+            modelBuilder.Entity("ELibary.Models.PhanCong", b =>
+                {
+                    b.HasOne("ELibary.Models.BaiGiang_TaiNguyen", "BaiGiang_TaiNguyen")
+                        .WithMany()
+                        .HasForeignKey("BaiGiang_TaiNguyenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BaiGiang_TaiNguyen");
                 });
 #pragma warning restore 612, 618
         }

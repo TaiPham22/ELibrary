@@ -36,11 +36,11 @@ namespace ELibary.Controllers
             }
             else if (mon != null)
             {
-                var get = (from gd in _context.BaiGiang_TaiNguyen
-                           join m in _context.MonHoc on gd.MaMon equals m.MaMon
-                           join l in _context.LopHoc on gd.MaMon equals l.MaLop
-                           join gv in _context.NguoiDung on gd.Ten equals gv.MaNguoiDung
-                           where gd.MaMon == mon
+                var get = (from gd in _context.GiangDay
+                           join m in _context.MonHoc on gd.MaMon equals m.Id
+                           join l in _context.LopHoc on gd.MaLop equals l.Id
+                           join gv in _context.NguoiDung on gd.MaGV equals gv.Id
+                           where m.MaMon == mon
                            select new
                            {
                                m.TenMonHoc,
@@ -51,16 +51,16 @@ namespace ELibary.Controllers
             }
             else
             {
-                var get = (from gd in _context.BaiGiang_TaiNguyen
-                           join m in _context.MonHoc on gd.MaMon equals m.MaMon
-                           join l in _context.LopHoc on gd.TenMon equals l.MaLop
-                           join gv in _context.NguoiDung on gd.TenMon equals gv.MaNguoiDung
+                var get = (from gd in _context.GiangDay
+                           join m in _context.MonHoc on gd.MaMon equals m.Id
+                           join l in _context.LopHoc on gd.MaLop equals l.Id
+                           join gv in _context.NguoiDung on gd.MaGV equals gv.Id
                            where l.TenLop.Contains(tenlop)
                            select new
                            {
                                m.TenMonHoc,
                                l.TenLop,
-                               TenGV = gv.MaNguoiDung
+                               TenGV = gv.TenNguoiDung
                            }).OrderBy(x => x.TenMonHoc);
                 return Ok(get);
             }
